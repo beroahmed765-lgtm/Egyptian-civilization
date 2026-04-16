@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عظمة مصر القديمة - The Glory of Ancient Egypt</title>
+    <style>
+        /* === التنسيق العام (CSS) === */
+        :root {
+            --gold: #d4af37;
+            --black: #000000;
+            --white: #ffffff;
+            --dark-gray: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Times New Roman', Times, serif; /* خط كلاسيكي فخم */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* تنسيق الهيدر (المقدمة) */
+        header {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1539650116574-8efeb43e2750?q=80&w=2000') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 5px solid var(--gold);
+            position: relative;
+        }
+
+        header h1 {
+            color: var(--gold);
+            font-size: 4rem;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header h2 {
+            color: var(--white);
+            font-size: 2rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        /* تنسيق قسم التعريف العام */
+        .intro-section {
+            background-color: var(--white);
+            color: var(--black);
+            padding: 60px 20px;
+            text-align: center;
+            border-radius: 15px;
+            width: 85%;
+            margin: -100px auto 40px; /* تداخل مع الهيدر */
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            position: relative;
+            z-index: 10;
+        }
+
+        .intro-section h3 {
+            color: var(--gold);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .intro-section p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* تنسيق شبكة الأزرار */
+        .buttons-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 40px 20px;
+            background-color: var(--dark-gray);
+        }
+
+        .king-btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: 2px solid var(--white);
+            padding: 15px 30px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-radius: 50px;
+            text-transform: uppercase;
+        }
+
+        .king-btn:hover {
+            background-color: var(--black);
+            color: var(--gold);
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.6);
+        }
+
+        /* === تنسيق صفحات الملوك المنبثقة (Overlay) === */
+        .king-overlay {
+            display: none; /* مخفية افتراضياً */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .overlay-content {
+            display: flex;
+            flex-direction: row-reverse; /* الصورة على اليسار والنص على اليمين */
+            align-items: flex-start;
+            justify-content: space-around;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        /* تنسيق حاوية الصورة والدوران */
+        .image-container {
+            perspective: 1000px; /* لعمق الدوران */
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            min-width: 300px;
+        }
+
+        .rotating-image {
+            width: 350px;
+            height: 500px;
+            object-fit: cover;
+            border: 5px solid var(--gold);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.8);
+            /* حركة الدوران 360 درجة */
+            animation: rotate360 15s linear infinite;
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
+        }
+
+        /* تنسيق صندوق النص */
+        .text-box {
+            background-color: var(--white);
+            color: var(--black);
+            padding: 40px;
+            border-radius: 15px;
+            flex: 2;
+            min-width: 350px;
+            line-height: 1.8;
+            box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .text-box h1 {
+            color: var(--gold);
+            font-size: 3rem;
+            margin-top: 0;
+            border-bottom: 3px solid var(--gold);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .text-box h2 {
+            font-size: 1.8rem;
+            margin-top: 30px;
+            color: var(--dark-gray);
+        }
+
+        .text-box p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .text-box ul {
+            font-size: 1.15rem;
+            list-style-type: square;
+            padding-right: 20px;
+        }
+
+        .text-box ul li {
+            margin-bottom: 10px;
+        }
+
+        /* تنسيق زر الإغلاق */
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background-color: var(--white);
+        }
+
+        /* تنسيق الملحوظة الجانبية (للملك خفرع) */
+        .note-box {
+            background-color: #f9f3e3;
+            border-right: 5px solid var(--gold);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 5px;
+        }
+
+        .pyramids-img {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 15px;
+            border-radius: 5px;
+            border: 2px solid var(--gold);
+        }
+
+        /* تحسين التجاوب مع الموبايل */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.5rem; }
+            header h2 { font-size: 1.2rem; }
+            .overlay-content { flex-direction: column; align-items: center; }
+            .text-box { width: 100%; }
+            .rotating-image { width: 280px; height: 380px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>الحضارة المصرية القديمة</h1>
+        <h2>The Glory of Ancient Egypt</h2>
+    </header>
+
+    <section class="intro-section">
+        <h3>مهد الحضارات</h3>
+        <p>
+            تعتبر الحضارة المصرية القديمة المعجزة البشرية الأهم في تاريخ العالم القديم، وهي الحضارة التي قامت بفضل عبقرية الإنسان المصري وتفاعله مع نهر النيل العظيم. امتد تاريخها لأكثر من ثلاثة آلاف عام، قُسمت خلالها إلى عصور ذهبية (الدولة القديمة، الوسطى، والحديثة). لم تكن مجرد حضارة بناء، بل كانت منظومة متكاملة من العلم، الدين، والفن. فقد وضع المصريون حجر الأساس لعلوم الطب والهندسة والفلك، وابتكروا نظاماً كتابياً معقداً (الهيروغليفية) لتدوين علومهم. كان مفهوم "ماعت" (الحق والعدل والنظام) هو الركيزة التي قامت عليها الدولة، وكان الإيمان بالبعث والخلود هو المحرك الذي دفعهم لتشييد صروح ضخمة تتحدى الزمن، لتظل مصر "هبة النيل" وشاهدة على خلود الفكر البشري.
+        </p>
+    </section>
+
+    <section class="buttons-grid">
+        <button class="king-btn" onclick="showKingPage('mina')">الملك مينا</button>
+        <button class="king-btn" onclick="showKingPage('khafre')">الملك خفرع</button>
+        <button class="king-btn" onclick="showKingPage('tut')">الملك توت عنخ آمون</button>
+        <button class="king-btn" onclick="showKingPage('ramses2')">الملك رمسيس الثاني</button>
+        <button class="king-btn" onclick="showKingPage('ramses3')">الملك رمسيس الثالث</button>
+    </section>
+
+    <div id="kingOverlay" class="king-overlay">
+        <button class="close-btn" onclick="closeKingPage()">إغلاق X</button>
+        <div id="overlayContent" class="overlay-content">
+            </div>
+    </div>
+
+    <script>
+        // قاعدة بيانات محتوى الملوك
+        const kingsData = {
+            mina: {
+                title: "الملك مينا (نعرمر)",
+                engTitle: "Unifier of the Two Lands",
+                image: "https://tse4.mm.bing.net/th/id/OIP.0PjV6UsFOqI-8krM_hViJQAAAA?w=320&h=630&rs=1&pid=ImgDetMain&o=7&rm=3", // رابط صورة الملك مينا
+                description: "هو الملك الأسطوري الذي تنسب إليه عملية التوحيد السياسي الكبرى لمصر في حوالي عام 3100 قبل الميلاد. يعتبره المؤرخون مؤسس الأسرة الأولى وممهد الطريق لعصر الأسرات. برزت شخصيته كقائد عسكري فذ استطاع إنهاء الصراعات الطويلة بين مملكتي الشمال والجنوب، ليخلق أول دولة مركزية منظمة في التاريخ.",
+                achievements: [
+                    "توحيد القطرين: نجح في دمج مصر العليا ومصر السفلى تحت تاج واحد (التاج المزدوج).",
+                    "تأسيس العاصمة 'منف': بنى مدينة 'منف' (الجدار الأبيض) في موقع متوسط بين الشمال والجنوب لتكون مركزاً للإدارة.",
+                    "لوحة نعرمر: ترك لنا 'صلاية نعرمر' التي تعد أقدم وثيقة تاريخية تسجل انتصاراته وتوحيده للبلاد.",
+                    "تأمين الحدود: قام بتأمين حدود مصر ضد الهجمات الخارجية وتنشيط حركة التجارة الداخلية."
+                ],
+                note: ""
+            },
+            khafre: {
+                title: "الملك خفرع",
+                engTitle: "The Builder of the Sphinx",
+                image: "https://historicaleve.com/wp-content/uploads/2022/02/seated-statue-of-king-khafre.jpg", // رابط صورة الملك خفرع
+                description: "أحد أعظم ملوك الدولة القديمة ومن أبرز حكام الأسرة الرابعة. تولى العرش بعد شقيقه 'جدف رع'، وسار على نهج والده الملك 'خوفو' في البناء العملاق. تميز عهده بالاستقرار والرخاء الاقتصادي الذي سمح له بتنفيذ مشاريع هندسية معقدة لا تزال قائمة حتى اليوم.",
+                achievements: [
+                    "بناء الهرم الثاني: شيد هرمه الشهير في الجيزة، وهو الهرم الذي لا يزال يحتفظ بجزء من كسائه الجيري الأصلي عند قمته.",
+                    "نحت تمثال أبو الهول: يُنسب إليه نحت هذا التمثال الأسطوري ليمثل وجهه الشخصي بجسد أسد، رمزاً للقوة والحكمة.",
+                    "المعبد الجنائزي ومعبد الوادي: بنى معابد ضخمة بجوار هرمه تميزت باستخدام كتل الجرانيت الضخمة والأرضيات المرمرية.",
+                    "التنظيم الإداري: عزز من سلطة الملك الإلهية ونظم العمل في المحاجر والمناجم بشكل احترافي."
+                ],
+                note: `
+                    <div class="note-box">
+                        <strong>ملحوظة عائلية تاريخية:</strong><br>
+                        يرتبط الملك خفرع بعلاقة وثيقة بوالده الملك <strong>خوفو</strong> (صاحب الهرم الأكبر) وابنه الملك <strong>منقرع</strong> (صاحب الهرم الثالث). هؤلاء الثلاثة شكلوا مجمع أهرامات الجيزة الخالدة، وهي المعجزة الهندسية الوحيدة الباقية من عجائب الدنيا السبع القديمة.<br>
+                        <img src="https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?q=80&w=400" alt="أهرامات الجيزة" class="pyramids-img">
+                    </div>
+                `
+            },
+            tut: {
+                title: "الملك توت عنخ آمون",
+                engTitle: "The Golden King",
+                image: "https://files.prokerala.com/news/photos/imgs/1024/150123-cairo-jan-23-2015-xinhua-the-photo-taken-262054.jpg", // رابط صورة قناع توت عنخ آمون
+                description: "\"الفرعون الصبي\" الذي تولى الحكم في التاسعة من عمره خلال فترة حرجة من الأسرة الثامنة عشرة. اكتسب شهرة عالمية منقطعة النظير ليس بسبب حروبه، بل بسبب \"الكنز\" الذي تركه خلفه. مقبرته التي اكتُشفت عام 1922 هي المقبرة الملكية الوحيدة التي وُجدت كاملة، مما أعطى للعالم صورة حقيقية عن فخامة الحياة الملكية المصرية.",
+                achievements: [
+                    "إعادة الاستقرار الديني: ألغى ديانة 'آتون' التي نادى بها إخناتون وأعاد عبادة الإله 'آمون' والآلهة التقليدية.",
+                    "نقل العاصمة: أعاد مقر الحكم من 'أخيتاتون' إلى 'طيبة' (الأقصر حالياً) ليعيد التوازن للدولة.",
+                    "ترميم المعابد: قام بإصلاح ما تم تدميره في المعابد القديمة خلال فترة الاضطراب الديني السابقة.",
+                    "الكنوز الأثرية: ترك خلفه أكثر من 5000 قطعة أثرية ذهبية، منها القناع الذهبي الشهير والتابوت الخالص."
+                ],
+                note: ""
+            },
+            ramses2: {
+                title: "الملك رمسيس الثاني",
+                engTitle: "The Great Ancestor",
+                image: "https://as1.ftcdn.net/v2/jpg/07/03/74/62/1000_F_703746208_d4yUTvbNs0001INGBM4F6gToCOiZPiyn.jpg", // رابط صورة رمسيس الثاني
+                description: "أقوى وأشهر ملوك الدولة الحديثة، حكم مصر لمدة 66 عاماً في الأسرة التاسعة عشرة. كان رمسيس الثاني 'سوبر مان' العصر القديم؛ محارب شجاع، وسياسي داهية، وبنّاء لا يهدأ. امتدت نفوذه من بلاد الشام شمالاً إلى النوبة جنوباً، ويُعتبر عهده العصر الذهبي للإمبراطورية المصرية.",
+                achievements: [
+                    "معركة قادش: قاد الجيش المصري في واحدة من أكبر المعارك الحربية ضد الحيثيين.",
+                    "أول معاهدة سلام: وقع أول معاهدة سلام مكتوبة في التاريخ مع ملك الحيثيين، مما مهد لعصر من الرخاء.",
+                    "معابد أبو سمبل: نحت معبدين عظيمين في صخور النوبة (أبو سمبل الكبير والصغير) اللذين تشهدا ظاهرة تعامد الشمس.",
+                    "بناء الرامسيوم: شيد معبده الجنائزي الضخم وضاعف حجم معابد الكرنك والأقصر.",
+                    "تأسيس مدينة 'بر رمسيس': بنى عاصمة جديدة في الدلتا لتكون مركزاً لجيوشه ومنطلقاً لحملاته نحو آسيا."
+                ],
+                note: ""
+            },
+            ramses3: {
+                title: "الملك رمسيس الثالث",
+                engTitle: "The Savior of Egypt",
+                image: "https://i.pinimg.com/originals/7f/e0/46/7fe04607262ac595be0087ee1e99114e.jpg", // رابط صورة رمسيس الثالث
+                description: "يُصنف كآخر الملوك العظام في الدولة الحديثة (الأسرة العشرين). تولى الحكم في وقت كان العالم فيه ينهار، حيث تعرضت الحضارات القديمة لهجمات 'شعوب البحر'. لولا شجاعته وتخطيطه العسكري، لكانت مصر قد سقطت في طي النسيان في ذلك الوقت المبكر.",
+                achievements: [
+                    "دحر شعوب البحر: خاض معارك برية وبحرية كبرى وهزم الغزاة الذين دمروا حضارات مجاورة مثل الحيثيين.",
+                    "بناء مدينة هابو: شيد معبده الجنائزي العظيم في الأقصر، وهو من أكثر المعابد حفظاً للنقوش والألوان حتى الآن.",
+                    "تنظيم الاقتصاد: أجرى إصلاحات إدارية لتحسين أحوال الموظفين والعمال، رغم الصعوبات التي واجهها.",
+                    "حماية الحدود الغربية: تصدى لمحاولات غزو القبائل الليبية لغرب الدلتا وأعاد الأمن والاستقرار للحدود."
+                ],
+                note: ""
+            }
+        };
+
+        // دالة لإظهار صفحة الملك
+        function showKingPage(kingId) {
+            const data = kingsData[kingId];
+            const overlay = document.getElementById('kingOverlay');
+            const content = document.getElementById('overlayContent');
+
+            // تحويل مصفوفة الإنجازات إلى عناصر قائمة <li>
+            const achievementsList = data.achievements.map(acc => `<li>${acc}</li>`).join('');
+
+            // بناء المحتوى داخل الـ Overlay
+            content.innerHTML = `
+                <div class="image-container">
+                    <img src="${data.image}" alt="${data.title}" class="rotating-image">
+                </div>
+                <div class="text-box">
+                    <h1>${data.title}</h1>
+                    <p style="font-style: italic; color: #555;">${data.engTitle}</p>
+                    <h2>التعريف الشامل:</h2>
+                    <p>${data.description}</p>
+                    <h2>أهم الإنجازات (في نقاط):</h2>
+                    <ul>
+                        ${achievementsList}
+                    </ul>
+                    ${data.note} </div>
+            `;
+
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // منع التمرير في الصفحة الرئيسية
+        }
+
+        // دالة لإغلاق صفحة الملك
+        function closeKingPage() {
+            const overlay = document.getElementById('kingOverlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = 'auto'; // إعادة التمرير للصفحة الرئيسية
+        }
+
+        // إغلاق الـ Overlay عند الضغط خارجه
+        window.onclick = function(event) {
+            const overlay = document.getElementById('kingOverlay');
+            if (event.target == overlay) {
+                closeKingPage();
+            }
+        }
+    </script>
+</body>
+</html>
